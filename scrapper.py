@@ -293,7 +293,8 @@ if __name__ == "__main__":
 
     # url = "https://chartink.com/screener/profit-jump-by-200"
     # url = "https://chartink.com/screener/vcp-volume-scan-3"
-    url = "https://chartink.com/screener/small-cap-stocks"
+    # url = "https://chartink.com/screener/small-cap-stocks"
+    url = "https://chartink.com/screener/copy-reversals-11"
 
     downloader = ChartInkCSVDownloader(url, headless=True)  # Set to False to see browser
     csv_file = downloader.download_csv()
