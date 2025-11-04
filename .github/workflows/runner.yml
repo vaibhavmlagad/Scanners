@@ -2,7 +2,6 @@ name: Run Scrapper
 
 on:
   schedule:
-    # - cron: "30 12 * * *"   # 6:00 PM ITC daily
     - cron: "*/5 * * * *"   # Every 5 minutes for testing
   workflow_dispatch:        # Allows manual trigger
   push:
@@ -11,7 +10,6 @@ on:
 
 jobs:
   execute-python:
-    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -32,8 +30,8 @@ jobs:
           CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scrapper.py
 
-      - name: Upload CSV output
-        uses: actions/upload-artifact@v4
-        with:
-          name: downloaded-csv
-          path: downloads/*.csv
+      # - name: Upload CSV output
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: downloaded-csv
+      #     path: downloads/*.csv
