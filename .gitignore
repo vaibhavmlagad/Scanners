@@ -1,46 +1,39 @@
+# Environment variables
 .env
 *.env
-```
 
-2. **Add your secrets to GitHub repository**:
-- Go to your GitHub repository
-- Click `Settings` → `Secrets and variables` → `Actions`
-- Click `New repository secret`
-- Add two secrets:
-  - Name: `TELEGRAM_TOKEN`
-  - Value: `7244301875:AAFgadXKWKV1hsxiHa1sawvIAjdJRw_bIF4`
-  
-  - Name: `TELEGRAM_CHAT_ID`
-  - Value: `1447480195`
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-3. **Update your GitHub Actions workflow to use secrets**:
-````yaml
-// filepath: [runner.yml](http://_vscodecontentref_/1)
-name: Run Python Script Daily
+# Virtual Environment
+venv/
+ENV/
 
-on:
-  schedule:
-    - cron: "0 18 * * *"
-  workflow_dispatch:
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
 
-jobs:
-  execute-python:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install dependencies
-        run: |
-          if [ -f [requirements.txt](http://_vscodecontentref_/2) ]; then pip install -r requirements.txt; fi
-
-      - name: Run script
-        env:
-          TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-          CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python [scrapper.py](http://_vscodecontentref_/3)
+# Chrome Driver
+chromedriver*
