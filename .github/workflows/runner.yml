@@ -1,12 +1,17 @@
-name: Run Python Script Daily
+name: Run Scrapper
 
 on:
   schedule:
-    - cron: "30 12 * * *"   # 12:30 PM UTC daily
+    # - cron: "30 12 * * *"   # 6:00 PM ITC daily
+    cron: "*/5 * * * *"   # Every 5 minutes for testing
   workflow_dispatch:        # Allows manual trigger
+  push:
+    branches:
+      - master
 
 jobs:
   execute-python:
+    if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
