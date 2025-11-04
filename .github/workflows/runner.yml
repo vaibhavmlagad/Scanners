@@ -3,7 +3,7 @@ name: Run Scrapper
 on:
   schedule:
     # - cron: "30 12 * * *"   # 6:00 PM ITC daily
-    cron: "*/5 * * * *"   # Every 5 minutes for testing
+    - cron: "*/5 * * * *"   # Every 5 minutes for testing
   workflow_dispatch:        # Allows manual trigger
   push:
     branches:
