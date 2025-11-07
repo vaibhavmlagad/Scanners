@@ -253,16 +253,15 @@ async def post_to_telegram(file_path: str):
         MAX_MESSAGE_LENGTH = 4000  # Leave some buffer
         
         header = f"<b>HMA Scanned Stocks</b>\n{datetime.now().strftime('Time: %d %b, %Y AT %I:%M %p')}\n\n<pre>"
-        table_header = "Symbol            %Chg\n" + "-" * 25 + "\n"
+        # table_header = "Symbol            %Chg\n" + "-" * 25 + "\n"
         footer = "</pre>"
         
-        current_message = header + table_header
+        current_message = header
         message_count = 1
         
         for _, row in selected.iterrows():
-            symbol = str(row['Symbol']).ljust(15)
-            chg = f"{row['%Chg']:>8}%"
-            line = f"{symbol}{chg}\n"
+            symbol = str(row['Symbol'])
+            line = f"NSE:{symbol}-EQ,\n"
             
             # Check if adding this line exceeds limit
             if len(current_message + line + footer) > MAX_MESSAGE_LENGTH:
@@ -271,12 +270,12 @@ async def post_to_telegram(file_path: str):
                 
                 # Start new message
                 message_count += 1
-                current_message = f"<b>HMA Scanned Stocks (Part {message_count})</b>\n{datetime.now().strftime('Time: %d %b, %Y AT %I:%M %p')}\n\n<pre>" + table_header
+                current_message = f"<b>HMA Scanned Stocks (Part {message_count})</b>\n{datetime.now().strftime('Time: %d %b, %Y AT %I:%M %p')}\n\n<pre>"
             
             current_message += line
         
         # Send remaining message
-        if current_message != header + table_header:
+        if current_message != header:
             await bot.send_message(chat_id=chat_id, text=current_message + footer, parse_mode="HTML")
         
         # Send CSV file
